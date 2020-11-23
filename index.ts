@@ -21,8 +21,7 @@ server.get('/alo/:name', (req, res, next) => {
 });
 
 server.post('/login', (req, res, next) => {
-    const { username } = req.body;
-    const { password } = req.body;
+    const { username, password } = req.body;
 
     axios.post('https://ec021-av2-auth.herokuapp.com/auth/login', {
         username,
