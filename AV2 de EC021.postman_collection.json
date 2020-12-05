@@ -1,0 +1,248 @@
+{
+	"info": {
+		"_postman_id": "33cd784b-697c-4a87-880a-847420b3bd27",
+		"name": "AV2 de EC021",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7b1eded1-ae6e-4a8f-baf2-884f18bf8d71",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "68565409-25f3-4510-a6f2-c85d1f7dc2ee",
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"pm.environment.set(\"token\", data.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"username\": \"william.fraga\",\r\n\t\"password\": \"1259\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar meme",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "af1fcd8b-8201-45d6-b71c-cc7c5693a622",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "494fde62-0c4b-456d-95f8-792849a508ad",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "{{token}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "token",
+						"value": "fsd",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"titulo\": \"Senhora\",\r\n\t\"descricao\": \"A senhora é funcionária da assembleia?\",\r\n    \"ano\": 2002\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/meme",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"meme"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit meme",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "46e256a3-ab57-40a5-8557-e89d29debf09",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "fdb6f780-59ce-4334-a9dd-baf5737ca27b",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "token",
+						"type": "text",
+						"value": "{{token}}",
+						"disabled": true
+					},
+					{
+						"key": "token",
+						"type": "text",
+						"value": "fsd"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"titulo\": \"Senhora editado\",\r\n\t\"descricao\": \"A senhora é funcionária da assembleia?\",\r\n    \"ano\": 2002\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/meme/5fcbd64660e34e08205914e7",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"meme",
+						"5fcbd64660e34e08205914e7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List memes",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "cc4a7453-369d-452b-a432-9d0dbaaba982",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2b399a2-a2da-4c99-8bae-a51bf7b7eb57",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"type": "text",
+						"value": "{{token}}",
+						"disabled": true
+					},
+					{
+						"key": "token",
+						"type": "text",
+						"value": "fsd"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/meme/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"meme",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
