@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+import { Schema, model } from 'mongoose';
 
 const MemeSchema = new Schema(
     {
@@ -11,4 +11,4 @@ const MemeSchema = new Schema(
     }
 );
 
-module.exports = model('Meme', MemeSchema);
+export const Meme = model('Meme', MemeSchema);
