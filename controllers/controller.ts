@@ -12,7 +12,7 @@ export function validateToken(req, res, next) {
     const headersConfig = {
         headers: req.headers
     };
-    axios.post
+    
     axios.post('https://ec021-av2-auth.herokuapp.com/auth/validateToken', {}, headersConfig)
         .then(function (response) {
             console.log('1')
