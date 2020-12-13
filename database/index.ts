@@ -1,9 +1,11 @@
-export const DB_URL = 'mongodb+srv://adauto:adauto@cluster0-rven8.mongodb.net/test?retryWrites=true&w=majority';
+require('dotenv').config();
+
+export const DB_URL = process.env.DB_URL;
 
 export const DB_CONFIG = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: true,
-    dbName: 'ec021-av2-core'
+    dbName: process.env.DB_NAME
 };

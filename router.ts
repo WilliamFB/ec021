@@ -3,7 +3,7 @@ import { createMeme, deleteMeme, editMeme, listMemes, login, validateBody, valid
 
 export const instanciaRouter = new Router();
 
-instanciaRouter.post('/login', validateBody,login);
+instanciaRouter.post('/login', validateBody, login);
 instanciaRouter.post('/meme', validateToken, createMeme);
 instanciaRouter.patch('/meme/:id', validateToken, editMeme);
 instanciaRouter.get('/meme/:id', validateToken, listMemes);

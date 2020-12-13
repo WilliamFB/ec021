@@ -3,7 +3,7 @@ import * as mongoose from 'mongoose';
 import {instanciaRouter as router} from './router';
 import {DB_CONFIG, DB_URL} from './database';
 
-const SERVER_PORT = 8080;
+require('dotenv').config()
 
 const server = restify.createServer();
 
@@ -14,7 +14,7 @@ server.use(restify.plugins.acceptParser(server.acceptable));
 server.use(restify.plugins.queryParser());
 server.use(restify.plugins.bodyParser());
 
-server.listen(SERVER_PORT, () => {
+server.listen(process.env.PORTA, () => {
     console.log('%s listening at %s', server.name, server.url);
 
     mongoose.connect(DB_URL, DB_CONFIG, function (error) {
