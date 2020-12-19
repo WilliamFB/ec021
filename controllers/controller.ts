@@ -1,5 +1,7 @@
-import { Meme } from '../models/Meme';
+import { Meme, ModelMeme } from '../models/Meme';
 import axios from 'axios';
+
+require('dotenv').config()
 
 // Middleware que irá checar se o token é válido
 export async function validateToken(req, res, next) {
@@ -13,8 +15,7 @@ export async function validateToken(req, res, next) {
         headers: { token }
     };
 
-    // Requisição enviada ao auth server para verificação do token -> usando o axios
-    await axios.post('https://ec021-av2-auth.herokuapp.com/auth/validateToken', {}, requestConfig)
+    axios.post(process.env.URL_VALIDATE_TOKEN, {}, requestConfig)
         .then((response) => {
             if (response.status == 401) {
                 return res.send(401, { 'erro': 'Token inválido' });
@@ -49,8 +50,7 @@ export async function login(req, res) {
     const { body } = req;
     const { username, password } = body;
 
-    // Requisição feita ao auth server, este irá retornar um token caso o login e senha sejam válidos
-    axios.post('https://ec021-av2-auth.herokuapp.com/auth/login', {
+    axios.post(process.env.URL_LOGIN, {
         username,
         password
     })
@@ -64,14 +64,9 @@ export async function login(req, res) {
 
 // Requisição para criação do meme
 export async function createMeme(req, res) {
-    const { titulo, descricao, ano } = req.body;
-
+    const meme: ModelMeme = req.body;
     const resposta = await Meme.create(
-        {
-            titulo,
-            descricao,
-            ano
-        }
+        meme
     );
 
     return res.json(201, resposta);
@@ -79,10 +74,10 @@ export async function createMeme(req, res) {
 
 // Requisição para editar o meme do id fornecido no req.params
 export async function editMeme(req, res) {
-    const { titulo, descricao, ano } = req.body;
+    const memeFieldsToEdit: ModelMeme = req.body;
     const { id } = req.params;
 
-    await Meme.findByIdAndUpdate(id, { titulo, descricao, ano }, (err, memes) => {
+    await Meme.findByIdAndUpdate(id, memeFieldsToEdit, (err, memes) => {
         if (err) {
             return console.error(err);
         }
