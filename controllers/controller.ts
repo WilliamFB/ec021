@@ -1,5 +1,7 @@
-import { Meme } from '../models/Meme';
+import { Meme, ModelMeme } from '../models/Meme';
 import axios from 'axios';
+
+require('dotenv').config()
 
 export async function validateToken(req, res, next) {
     const { headers } = req;
@@ -9,13 +11,12 @@ export async function validateToken(req, res, next) {
         return res.send(403, { 'erro': 'Token não fornecido' });
     }
 
-
     const requestConfig = {
-        headers
+        headers: { token }
     };
-    axios.post('https://ec021-av2-auth.herokuapp.com/auth/validateToken', {}, requestConfig)
+
+    axios.post(process.env.URL_VALIDATE_TOKEN, {}, requestConfig)
         .then((response) => {
-            console.log('1')
             if (response.status == 401) {
                 return res.send(401, { 'erro': 'Token inválido' });
             }
@@ -27,7 +28,7 @@ export async function validateToken(req, res, next) {
                 return res.send(401, { 'erro': 'Token inválido' });
             }
         });
-    return next();
+
 }
 
 export function validateBody(req, res, next) {
@@ -48,7 +49,7 @@ export async function login(req, res) {
     const { body } = req;
     const { username, password } = body;
 
-    axios.post('https://ec021-av2-auth.herokuapp.com/auth/login', {
+    axios.post(process.env.URL_LOGIN, {
         username,
         password
     })
@@ -61,24 +62,19 @@ export async function login(req, res) {
 }
 
 export async function createMeme(req, res) {
-    const { titulo, descricao, ano } = req.body;
-
+    const meme: ModelMeme = req.body;
     const resposta = await Meme.create(
-        {
-            titulo,
-            descricao,
-            ano
-        }
+        meme
     );
 
     return res.json(201, resposta);
 }
 
 export async function editMeme(req, res) {
-    const { titulo, descricao, ano } = req.body;
+    const memeFieldsToEdit: ModelMeme = req.body;
     const { id } = req.params;
 
-    await Meme.findByIdAndUpdate(id, { titulo, descricao, ano }, (err, memes) => {
+    await Meme.findByIdAndUpdate(id, memeFieldsToEdit, (err, memes) => {
         if (err) {
             return console.error(err);
         }

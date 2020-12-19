@@ -1,5 +1,12 @@
 import { Schema, model } from 'mongoose';
 
+export interface ModelMeme {
+    _id?: string;
+    titulo: string,
+    descricao: string,
+    ano: number
+}
+
 const MemeSchema = new Schema(
     {
         titulo: String,
