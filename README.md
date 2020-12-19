@@ -10,7 +10,11 @@
 **Dotenv:** Usado para gerenciar as variáveis ambiente do projeto
 
 ## Como configurar
-Preencha o arquivo `.env` com as seguintes URLs:
+Importe a coleção do Postman que estará disponível na raiz do projeto com o nome `AV2 de EC021.postman_collection.json`
+
+Importe as variáveis de ambiente do Postman disponível na raiz do projeto com o nome `AV2 EC021 Ambiente.postman_environment.json`
+
+O arquivo `.env` já estará preenchido:
 
     PORTA=8080
 
@@ -20,15 +24,15 @@ Preencha o arquivo `.env` com as seguintes URLs:
     URL_LOGIN=https://ec021-av2-auth.herokuapp.com/auth/login
 
 ## Criar a imagem Docker
-Execute o arquivo `docker-build-run.sh` usando o comando:
+Executa os comandos:
 
-**Se Windows:** `sh docker-build-run.sh`  
-**Se Linux:** `bash docker-build-run.sh`  
+    docker build -t ec021 .
+    docker run -p 8080:8080 -it ec021
 
-Este arquivo `.sh` executa os comandos: `docker build -t ec021 .` e `docker run -p 8080:8080 -it ec021`
+Ou, se preferir, execute o script `docker-build-run.sh`
 
 ## Execução
-Para rodar a aplicação execute os seguintes comandos no terminal na pasta do projeto:
+Para rodar a aplicação sem o Docker execute os seguintes comandos no terminal na pasta do projeto:
 
     npm install
     npm run start
