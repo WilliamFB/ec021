@@ -1,21 +1,21 @@
 import { Meme } from '../models/Meme';
 import axios from 'axios';
 
+// Middleware que irá checar se o token é válido
 export async function validateToken(req, res, next) {
-    const { headers } = req;
-    const { token } = headers;
+    const { token } = req.headers;
 
     if (!token) {
         return res.send(403, { 'erro': 'Token não fornecido' });
     }
 
-
     const requestConfig = {
-        headers
+        headers: { token }
     };
-    axios.post('https://ec021-av2-auth.herokuapp.com/auth/validateToken', {}, requestConfig)
+
+    // Requisição enviada ao auth server para verificação do token -> usando o axios
+    await axios.post('https://ec021-av2-auth.herokuapp.com/auth/validateToken', {}, requestConfig)
         .then((response) => {
-            console.log('1')
             if (response.status == 401) {
                 return res.send(401, { 'erro': 'Token inválido' });
             }
@@ -23,13 +23,13 @@ export async function validateToken(req, res, next) {
             return next();
         })
         .catch((error) => {
-            if (error.status == 401) {
+            if (error.response.status == 401) {
                 return res.send(401, { 'erro': 'Token inválido' });
             }
         });
-    return next();
 }
 
+// Middleware para verificar o body da requisição
 export function validateBody(req, res, next) {
     const { body } = req;
 
@@ -44,10 +44,12 @@ export function validateBody(req, res, next) {
     }
 }
 
+// Requisição de login
 export async function login(req, res) {
     const { body } = req;
     const { username, password } = body;
 
+    // Requisição feita ao auth server, este irá retornar um token caso o login e senha sejam válidos
     axios.post('https://ec021-av2-auth.herokuapp.com/auth/login', {
         username,
         password
@@ -60,6 +62,7 @@ export async function login(req, res) {
         });
 }
 
+// Requisição para criação do meme
 export async function createMeme(req, res) {
     const { titulo, descricao, ano } = req.body;
 
@@ -74,6 +77,7 @@ export async function createMeme(req, res) {
     return res.json(201, resposta);
 }
 
+// Requisição para editar o meme do id fornecido no req.params
 export async function editMeme(req, res) {
     const { titulo, descricao, ano } = req.body;
     const { id } = req.params;
@@ -93,6 +97,7 @@ export async function editMeme(req, res) {
     });
 }
 
+// Requisição que lista um meme por id ou todos os memes
 export async function listMemes(req, res) {
     const { id } = req.params;
 
@@ -117,6 +122,7 @@ export async function listMemes(req, res) {
     }
 }
 
+// Requisição para deletar o meme
 export async function deleteMeme(req, res) {
     const { id } = req.params;
 
