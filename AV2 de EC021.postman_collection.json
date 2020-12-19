@@ -43,12 +43,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/login",
+					"raw": "localhost:8080/auth/login",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"auth",
 						"login"
 					]
 				}
@@ -85,18 +86,12 @@
 					{
 						"key": "token",
 						"value": "{{token}}",
-						"type": "text",
-						"disabled": true
-					},
-					{
-						"key": "token",
-						"value": "fsd",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"titulo\": \"Senhora\",\r\n\t\"descricao\": \"A senhora é funcionária da assembleia?\",\r\n    \"ano\": 2002\r\n}",
+					"raw": "{\r\n\t\"titulo\": \"Senhora\",\r\n\t\"descricao\": \"A senhora é funcionária da assembleia?\",\r\n    \"ano\": 2015\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -146,18 +141,12 @@
 					{
 						"key": "token",
 						"type": "text",
-						"value": "{{token}}",
-						"disabled": true
-					},
-					{
-						"key": "token",
-						"type": "text",
-						"value": "fsd"
+						"value": "{{token}}"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"titulo\": \"Senhora editado\",\r\n\t\"descricao\": \"A senhora é funcionária da assembleia?\",\r\n    \"ano\": 2002\r\n}",
+					"raw": "{\r\n\t\"titulo\": \"Senhora editado\",\r\n\t\"descricao\": \"Meme editado\",\r\n    \"ano\": 2020\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -211,13 +200,7 @@
 					{
 						"key": "token",
 						"type": "text",
-						"value": "{{token}}",
-						"disabled": true
-					},
-					{
-						"key": "token",
-						"type": "text",
-						"value": "fsd"
+						"value": "{{token}}"
 					}
 				],
 				"body": {
@@ -238,6 +221,62 @@
 					"path": [
 						"meme",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete meme",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ce78eca5-2f8f-4ea2-a44a-bdb9999047ed",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e8c7c86d-b294-46e8-8b5d-f36d5873bdd5",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "token",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/meme/5fd6946bf5b2cf1d8cb509e9",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"meme",
+						"5fd6946bf5b2cf1d8cb509e9"
 					]
 				}
 			},

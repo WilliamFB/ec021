@@ -3,9 +3,9 @@ import axios from 'axios';
 
 require('dotenv').config()
 
+// Middleware que irá checar se o token é válido
 export async function validateToken(req, res, next) {
-    const { headers } = req;
-    const { token } = headers;
+    const { token } = req.headers;
 
     if (!token) {
         return res.send(403, { 'erro': 'Token não fornecido' });
@@ -24,13 +24,13 @@ export async function validateToken(req, res, next) {
             return next();
         })
         .catch((error) => {
-            if (error.status == 401) {
+            if (error.response.status == 401) {
                 return res.send(401, { 'erro': 'Token inválido' });
             }
         });
-
 }
 
+// Middleware para verificar o body da requisição
 export function validateBody(req, res, next) {
     const { body } = req;
 
@@ -45,6 +45,7 @@ export function validateBody(req, res, next) {
     }
 }
 
+// Requisição de login
 export async function login(req, res) {
     const { body } = req;
     const { username, password } = body;
@@ -61,6 +62,7 @@ export async function login(req, res) {
         });
 }
 
+// Requisição para criação do meme
 export async function createMeme(req, res) {
     const meme: ModelMeme = req.body;
     const resposta = await Meme.create(
@@ -70,6 +72,7 @@ export async function createMeme(req, res) {
     return res.json(201, resposta);
 }
 
+// Requisição para editar o meme do id fornecido no req.params
 export async function editMeme(req, res) {
     const memeFieldsToEdit: ModelMeme = req.body;
     const { id } = req.params;
@@ -89,6 +92,7 @@ export async function editMeme(req, res) {
     });
 }
 
+// Requisição que lista um meme por id ou todos os memes
 export async function listMemes(req, res) {
     const { id } = req.params;
 
@@ -113,6 +117,7 @@ export async function listMemes(req, res) {
     }
 }
 
+// Requisição para deletar o meme
 export async function deleteMeme(req, res) {
     const { id } = req.params;
 
